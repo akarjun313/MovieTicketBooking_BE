@@ -1,6 +1,6 @@
 import express from 'express'
-import { createTheatre, deleteTheatre, editTheatre, getTheatres } from '../controllers/theatreControllers.js'
-import { getMovie } from '../controllers/movieControllers.js'
+import { createTheatre, deleteTheatre, editTheatre, showTheatres } from '../controllers/theatreControllers.js'
+import { addMovie, getMovie } from '../controllers/movieControllers.js'
 import authenticateOwner from '../middlewares/ownerAuth.js'
 
 
@@ -10,10 +10,12 @@ ownerRouter.get('/', (req, res)=>{
     console.log("Owner routes")
 })
 
-ownerRouter.get('/t-list', authenticateOwner, getTheatres)
+ownerRouter.get('/t-list', authenticateOwner, showTheatres)
 ownerRouter.post('/t-add', authenticateOwner, createTheatre)
-ownerRouter.delete('/t-rem', authenticateOwner, deleteTheatre)
-ownerRouter.put('/t-edit', authenticateOwner, editTheatre)
+ownerRouter.delete('/t-rem/:id', authenticateOwner, deleteTheatre)
+ownerRouter.patch('/t-edit/:id', authenticateOwner, editTheatre)
+
+ownerRouter.patch('/add-mov/:id', authenticateOwner, addMovie)
 
 ownerRouter.get('/movie-list', getMovie)
 

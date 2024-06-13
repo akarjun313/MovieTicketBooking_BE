@@ -29,6 +29,12 @@ const movieSchema = new mongoose.Schema({
     },
     image : {
         type : String
+    },
+    status : {
+        type : String,
+        enum : ["running", "upcoming"],
+        required : true,
+        default : "running"
     }
 },{ timestamps : true })
 

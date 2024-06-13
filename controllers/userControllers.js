@@ -38,9 +38,12 @@ export const userSignup = async (req, res) => {
         }
 
         console.log("new user created successfully")
+       
+        const userId = userToDb._id.toHexString()
 
         const token = userToken(email)
         res.cookie("token", token)
+        res.cookie("userId", userId)
         res.send("token created successfully, Sign-up successful")
         console.log("sign-up successful ", token)
     } catch (error) {
@@ -66,8 +69,10 @@ export const userSignin = async (req, res) => {
             return res.send("Incorrect password")
         }
 
-        const token = userToken(email)
+        const userId = userExist._id.toHexString()
+        const token = userToken(userExist)
         res.cookie("token", token)
+        res.cookie("userId", userId)
         res.send("Logged In")
         console.log("token created successfully, logged-In")
 
@@ -77,7 +82,7 @@ export const userSignin = async (req, res) => {
     }
 }
 
-// List of users(owners & normal users) 
+// List of users(owners & normal users) for admin
 export const getUsers = async (req, res) => {
     const users = await User.find()
     res.send(users)
