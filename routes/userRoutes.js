@@ -1,11 +1,11 @@
 import express from 'express'
-import { userSignup, userSignin } from '../controllers/userControllers.js'
+import { userSignup, userSignin, userLogout } from '../controllers/userControllers.js'
 import { getMovie, getSingleMovie } from '../controllers/movieControllers.js'
 import authenticateUser from '../middlewares/userAuth.js'
 import ownerRouter from './ownerRoutes.js'
 import { addReview, deleteReview, editReview, showReviews } from '../controllers/reviewController.js'
 import { theatreListofMovie } from '../controllers/theatreControllers.js'
-// import { timing } from '../controllers/timingController.js'
+import { showSeats } from '../controllers/bookingController.js'
 
 const userRouter = express.Router()
 
@@ -18,7 +18,8 @@ userRouter.use('/owner', ownerRouter)
 // common to all 
 userRouter.post('/signup', userSignup)
 userRouter.post('/signin', userSignin)
-// userRouter.post('/timing', timing)
+userRouter.post('/logout', userLogout)
+
 
 userRouter.get('/movies', getMovie)
 userRouter.get('/movie-reviews/:id', showReviews)
@@ -30,6 +31,9 @@ userRouter.post('/add-review/:id', authenticateUser, addReview)
 userRouter.patch('/edit-review/:id', authenticateUser, editReview)
 userRouter.delete('/rem-review/:id', authenticateUser, deleteReview)
 
+//booking
+userRouter.get('/show-seats/:id', showSeats)
+ 
 // incomplete routes 
 userRouter.get('/orders', authenticateUser)
 

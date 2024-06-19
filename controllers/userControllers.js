@@ -82,6 +82,15 @@ export const userSignin = async (req, res) => {
     }
 }
 
+//users logout
+export const userLogout = async (req, res) => {
+    res.clearCookie("token")
+    res.clearCookie("userId")
+    res.send("logged out")
+}
+
+
+
 // List of users(owners & normal users) for admin
 export const getUsers = async (req, res) => {
     const users = await User.find()

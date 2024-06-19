@@ -30,7 +30,7 @@ export const addReview = async (req, res) => {
         if(findUser.role != "user") return res.send("You are not autherised to add review")
             
         const findReview = await Review.find({ movie : id } && { user : user })
-        if(findReview) return res.send("already added review")
+        if(findReview.length != 0) return res.send("already added review")
 
         if(movieExist.status === "upcoming") return res.send("Movie has to be running")
         

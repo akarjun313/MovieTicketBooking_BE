@@ -44,8 +44,7 @@ const theatreSchema = new mongoose.Schema({
     },
     seats : [{type : mongoose.Types.ObjectId, ref : "Seating"}],
     movie : {type : mongoose.Types.ObjectId, ref : "Movie"},
-    owner : [{type : mongoose.Types.ObjectId, ref : "User"}],
-    timing : [{type : mongoose.Types.ObjectId, ref : "Shows"}]
+    owner : {type : mongoose.Types.ObjectId, ref : "User"}
 })
 
 const Theatre = mongoose.model('Theatre', theatreSchema)

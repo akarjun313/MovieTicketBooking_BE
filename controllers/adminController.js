@@ -21,7 +21,7 @@ export const adminSignin = async (req, res) => {
         if(adminExist.role != "admin") return res.send("not an admin")
         
         const token = adminToken(adminExist)
-        res.cookie("adtoken", token)
+        await res.cookie("adtoken", token)
         res.send("Logged In")
 
     } catch (error) {
